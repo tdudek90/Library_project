@@ -24,6 +24,13 @@ public class Main {
                             book.addBook(serverConnection.connectToServer());
                         }
                         break;
+                        case 3: {
+                            user.showAllUser(serverConnection.connectToServer());
+                        }
+                        break;
+                        case 4: {
+                            book.showBooks(serverConnection.connectToServer());
+                        }
                     }
                 }
                 break;

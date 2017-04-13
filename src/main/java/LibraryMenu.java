@@ -1,3 +1,4 @@
+import java.sql.*;
 import java.util.Scanner;
 
 public class LibraryMenu {
@@ -13,6 +14,8 @@ public class LibraryMenu {
         System.out.println("Options");
         System.out.println("1. Add user");
         System.out.println("2. Add book");
+        System.out.println("3. Show all users");
+        System.out.println("4. Show all books");
 
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
@@ -20,5 +23,10 @@ public class LibraryMenu {
 
     public void sayGoodBye() {
         System.out.println("See you later");
+    }
+
+    public void showAllUsers(){
+
+
     }
 }

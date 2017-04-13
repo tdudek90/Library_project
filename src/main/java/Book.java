@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -28,6 +29,21 @@ public class Book {
         statement.close();
 
         System.out.println("Dodałem książkę!");
+    }
+
+    public void showBooks(Connection connection) throws SQLException {
+        String sql = "SELECT * FROM book";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery(sql);
+        while (resultSet.next()) {
+            System.out.println("-----------------");
+            System.out.println(resultSet.getInt("id"));
+            System.out.print(resultSet.getString("title"));
+            System.out.println(resultSet.getString("author"));
+            System.out.println(resultSet.getString("pages"));
+
+        }
+
     }
 
 }
