@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         ServerConnection serverConnection = new ServerConnection();
+        serverConnection.connectToServer();
         LibraryMenu libraryMenu = new LibraryMenu();
         User user = new User();
         Book book = new Book();
@@ -34,6 +35,9 @@ public class Main {
                         }
                         case 5: {
                             rent.addRent(serverConnection.connectToServer());
+                        }
+                        case 6: {
+                            rent.showRentedBooks(serverConnection.connectToServer());
                         }
                     }
                 }

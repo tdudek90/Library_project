@@ -35,7 +35,7 @@ public class ServerConnection {
             e.printStackTrace();
         }
 
-        System.out.println("Połączono");
+        System.out.println("Connected");
         return connection;
     }
 }

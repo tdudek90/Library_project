@@ -18,7 +18,7 @@ public class User {
         String sql = "INSERT INTO user (name, lastName, number) VALUES (?,?,?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Wpisz imię,nazwisko,numer telefonu (po przecinku)");
+        System.out.println("Enter name, lastname, phone number(after the decimal point)");
         String[] userData = scanner.nextLine().split(",");
 
         statement.setString(1, name = userData[0]);
@@ -28,7 +28,7 @@ public class User {
         statement.execute();
         statement.close();
 
-        System.out.println("Dodałem użytkownika!");
+        System.out.println("User has been added!");
     }
 
     public void showAllUser(Connection connection) throws SQLException {
