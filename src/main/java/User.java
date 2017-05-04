@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Scanner;
 
 
@@ -14,9 +11,9 @@ public class User {
     public User() {
     }
 
-    public void addUser(Connection connection) throws SQLException {
+    public void addUser(ServerConnection serverConnection) throws SQLException {
         String sql = "INSERT INTO user (name, lastName, number) VALUES (?,?,?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter name, lastname, phone number(after the decimal point)");
         String[] userData = scanner.nextLine().split(",");
@@ -31,9 +28,9 @@ public class User {
         System.out.println("User has been added!");
     }
 
-    public void showAllUser(Connection connection) throws SQLException {
+    public void showAllUser(ServerConnection connection) throws SQLException {
         String sql = "SELECT * FROM user";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        Statement statement = connection.getNewStatement();
         ResultSet resultSet = statement.executeQuery(sql);
         while (resultSet.next()) {
             System.out.println("-----------------");

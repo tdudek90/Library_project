@@ -5,8 +5,7 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
-        ServerConnection serverConnection = new ServerConnection();
-        serverConnection.connectToServer();
+        ServerConnection connection = ServerConnection.getInstance();
         LibraryMenu libraryMenu = new LibraryMenu();
         User user = new User();
         Book book = new Book();
@@ -19,25 +18,28 @@ public class Main {
                     int menuLibrary = libraryMenu.showOptions();
                     switch (menuLibrary) {
                         case 1: {
-                            user.addUser(serverConnection.connectToServer());
+                            user.addUser(connection);
                         }
                         break;
                         case 2: {
-                            book.addBook(serverConnection.connectToServer());
+                            book.addBook(connection);
                         }
                         break;
                         case 3: {
-                            user.showAllUser(serverConnection.connectToServer());
+                            user.showAllUser(connection);
                         }
                         break;
                         case 4: {
-                            book.showBooks(serverConnection.connectToServer());
+                            book.showBooks(connection);
+                            break;
                         }
                         case 5: {
-                            rent.addRent(serverConnection.connectToServer());
+                            rent.addRent(connection);
+                            break;
                         }
                         case 6: {
-                            rent.showRentedBooks(serverConnection.connectToServer());
+                            rent.showRentedBooks(connection);
+                            break;
                         }
                     }
                 }

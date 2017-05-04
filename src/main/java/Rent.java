@@ -13,9 +13,9 @@ public class Rent {
     private int userID;
 
 
-    public void addRent(Connection connection) throws SQLException {
+    public void addRent(ServerConnection connection) throws SQLException {
         String sql = "INSERT INTO rent (book, user) VALUES (?,?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter book ID, user ID)");
         String[] book = scanner.nextLine().split(",");
@@ -29,11 +29,11 @@ public class Rent {
         System.out.println("Rent has been added!");
     }
 
-    public void showRentedBooks(Connection connection) throws SQLException {
+    public void showRentedBooks(ServerConnection connection) throws SQLException {
         String sql = "SELECT * FROM rent";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
         ResultSet resultSet = statement.executeQuery(sql);
-        while (resultSet.next()){
+        while (resultSet.next()) {
             System.out.println("-----------------");
             System.out.println(resultSet.getInt("id"));
             System.out.println(resultSet.getInt("book"));

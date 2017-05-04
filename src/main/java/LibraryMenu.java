@@ -24,11 +24,8 @@ public class LibraryMenu {
     }
 
     public void sayGoodBye() {
-        System.out.println("See you later");
+        System.out.println("Goodbye");
     }
 
-    public void showAllUsers(){
 
-
-    }
 }

@@ -14,11 +14,11 @@ public class Book {
     public Book() {
     }
 
-    public void addBook(Connection connection) throws SQLException {
+    public void addBook(ServerConnection connection) throws SQLException {
         String sql = "INSERT INTO book (title, author, pages) VALUES (?,?,?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Wpisz tytuł,autora,ilosc stron (po przecinku)");
+        System.out.println("Enter title, author and number of pages(after the decimal point)");
         String[] book = scanner.nextLine().split(",");
 
         statement.setString(1, title = book[0]);
@@ -28,12 +28,12 @@ public class Book {
         statement.execute();
         statement.close();
 
-        System.out.println("Dodałem książkę!");
+        System.out.println("Book has been added!");
     }
 
-    public void showBooks(Connection connection) throws SQLException {
+    public void showBooks(ServerConnection connection) throws SQLException {
         String sql = "SELECT * FROM book";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
         ResultSet resultSet = statement.executeQuery(sql);
         while (resultSet.next()) {
             System.out.println("-----------------");
