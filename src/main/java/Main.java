@@ -9,6 +9,7 @@ public class Main {
         LibraryMenu libraryMenu = new LibraryMenu();
         User user = new User();
         Book book = new Book();
+        Rent rent = new Rent();
         boolean ifEnd = false;
         while (!ifEnd) {
             int menu = libraryMenu.menu();
@@ -30,6 +31,9 @@ public class Main {
                         break;
                         case 4: {
                             book.showBooks(serverConnection.connectToServer());
+                        }
+                        case 5: {
+                            rent.addRent(serverConnection.connectToServer());
                         }
                     }
                 }
