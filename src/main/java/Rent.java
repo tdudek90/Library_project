@@ -17,17 +17,22 @@ public class Rent {
         String sql = "INSERT INTO rent (book, user) VALUES (?,?)";
         PreparedStatement statement = connection.getNewPrepareStatement(sql);
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter book ID, user ID)");
+        System.out.println("Enter user ID, book ID)");
+
         String[] book = scanner.nextLine().split(",");
 
-        statement.setString(1, String.valueOf(bookID = Integer.parseInt(book[0])));
-        statement.setString(2, String.valueOf(userID = Integer.parseInt(book[1])));
+        statement.setString(1, String.valueOf(userID = Integer.parseInt(book[0])));
+        statement.setString(2, String.valueOf(bookID = Integer.parseInt(book[1])));
+        if (!(isUserExist(connection, userID) && isBookExist(connection, bookID))) {
+            return;
+        } else {
+            statement.execute();
+            statement.close();
 
-        statement.execute();
-        statement.close();
-
-        System.out.println("Rent has been added!");
+            System.out.println("Rent has been added!");
+        }
     }
+
 
     public void showRentedBooks(ServerConnection connection) throws SQLException {
         String sql = "SELECT * FROM rent";
@@ -42,5 +47,31 @@ public class Rent {
         }
     }
 
+    private boolean isUserExist(ServerConnection connection, int ID) throws SQLException {
+        String sql = "SELECT * FROM user WHERE id = ?";
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
+        statement.setInt(1, ID);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            System.out.println("User exist");
+            return true;
+        }
+        System.out.println("User does not exist");
+        return false;
+    }
 
+    private boolean isBookExist(ServerConnection connection, int ID) throws SQLException {
+        String sql = "SELECT * FROM book WHERE id = ?";
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
+        statement.setInt(1, ID);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            System.out.println("Book exist");
+            return true;
+        }
+        System.out.println("Book does not exist");
+        return false;
+    }
+
+    
 }
