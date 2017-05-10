@@ -23,7 +23,7 @@ public class Rent {
 
         statement.setString(1, String.valueOf(userID = Integer.parseInt(book[0])));
         statement.setString(2, String.valueOf(bookID = Integer.parseInt(book[1])));
-        if (!(isUserExist(connection, userID) && isBookExist(connection, bookID))) {
+        if (!(isUserExist(connection, userID) && isBookExist(connection, bookID) && !isBookRented(connection, bookID))) {
             return;
         } else {
             statement.execute();
@@ -55,9 +55,10 @@ public class Rent {
         if (resultSet.next()) {
             System.out.println("User exist");
             return true;
+        } else {
+            System.out.println("User does not exist");
+            return false;
         }
-        System.out.println("User does not exist");
-        return false;
     }
 
     private boolean isBookExist(ServerConnection connection, int ID) throws SQLException {
@@ -68,10 +69,25 @@ public class Rent {
         if (resultSet.next()) {
             System.out.println("Book exist");
             return true;
+        } else {
+            System.out.println("Book does not exist");
+            return false;
         }
-        System.out.println("Book does not exist");
-        return false;
     }
 
-    
+    private boolean isBookRented(ServerConnection connection, int ID) throws SQLException {
+        String sql = "SELECT *FROM rent WHERE book = ? ";
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
+        statement.setInt(1, ID);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            System.out.println("Book is rented");
+            return true;
+        } else {
+            System.out.println("Book is not rented");
+            return false;
+        }
+    }
+
+
 }
