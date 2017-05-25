@@ -10,6 +10,7 @@ public class Main {
         User user = new User();
         Book book = new Book();
         Rent rent = new Rent();
+        UserDAO userDAO = new UserDAO();
         boolean ifEnd = false;
         while (!ifEnd) {
             int menu = libraryMenu.menu();
@@ -18,7 +19,8 @@ public class Main {
                     int menuLibrary = libraryMenu.showOptions();
                     switch (menuLibrary) {
                         case 1: {
-                            user.addUser(connection);
+                            userDAO.addUser(connection,new User());
+//                            user.addUser(connection);
                         }
                         break;
                         case 2: {
