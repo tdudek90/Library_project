@@ -1,5 +1,7 @@
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
 
 
@@ -26,6 +28,19 @@ public class UserDAO {
         System.out.println("User has been added!");
     }
 
+    public void showAllUser(ServerConnection serverConnection) throws SQLException {
+        String sql = "SELECT * FROM user";
+        PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery(sql);
+        while (resultSet.next()) {
+            System.out.println("-----------------");
+            System.out.println(resultSet.getInt("id"));
+            System.out.print(resultSet.getString("name"));
+            System.out.println(resultSet.getString("lastName"));
+            System.out.println("-----------------");
+
+        }
+    }
 
 
 }

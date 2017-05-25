@@ -28,7 +28,7 @@ public class Main {
                         }
                         break;
                         case 3: {
-                            user.showAllUser(connection);
+                            userDAO.showAllUser(connection);
                         }
                         break;
                         case 4: {
