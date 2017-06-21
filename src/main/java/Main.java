@@ -43,6 +43,9 @@ public class Main {
                             rent.showRentedBooks(connection);
                             break;
                         }
+                        case 7:{
+                            userDAO.editUser(connection, new User());
+                        }
                     }
                 }
                 break;

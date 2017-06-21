@@ -27,6 +27,33 @@ public class UserDAO {
         System.out.println("User has been added!");
     }
 
+    public void editUser(ServerConnection serverConnection, User user) throws SQLException {
+        String sql = "UPDATE user SET name=?, lastName=?, number=? WHERE id=?";
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter name, lastname, phone number (after the decimal point)");
+        PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
+        String[] userData = scanner.nextLine().split(",");
+
+        System.out.println("Enter user id to edit");
+        int id = scanner.nextInt();
+        user.setName(userData[0]);
+        user.setLastName(userData[1]);
+        user.setPhoneNumber(userData[2]);
+
+
+        statement.setString(1, userData[0] = user.getName());
+        statement.setString(2, userData[1] = user.getLastName());
+        statement.setString(3, userData[2] = user.getPhoneNumber());
+        statement.setInt(4,id );
+
+        int rowsUpdated = statement.executeUpdate();
+        if (rowsUpdated > 0) {
+            System.out.println("User has been edited!");
+        }
+
+    }
+
+
     public void showAllUser(ServerConnection serverConnection) throws SQLException {
         String sql = "SELECT * FROM user";
         PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
