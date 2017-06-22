@@ -53,7 +53,6 @@ public class UserDAO {
 
     }
 
-
     public void showAllUser(ServerConnection serverConnection) throws SQLException {
         String sql = "SELECT * FROM user";
         PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
@@ -66,6 +65,22 @@ public class UserDAO {
             System.out.println("-----------------");
 
         }
+    }
+
+    public void deleteUser(ServerConnection serverConnection) throws SQLException {
+        String sql = "DELETE from user WHERE id = ?";
+        PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter user ID to delete");
+        int ID = scanner.nextInt();
+
+        statement.setInt(1,ID);
+
+        statement.execute();
+        statement.close();
+
+        System.out.println("User has been deleted!");
     }
 
 

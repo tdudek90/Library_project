@@ -19,6 +19,7 @@ public class LibraryMenu {
         System.out.println("5. Add rent");
         System.out.println("6. Show rented books");
         System.out.println("7. Edit user");
+        System.out.println("8. Delete user");
 
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();

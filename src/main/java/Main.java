@@ -46,6 +46,9 @@ public class Main {
                         case 7:{
                             userDAO.editUser(connection, new User());
                         }
+                        case 8:{
+                            userDAO.deleteUser(connection);
+                        }
                     }
                 }
                 break;
