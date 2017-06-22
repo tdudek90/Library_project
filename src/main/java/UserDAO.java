@@ -7,19 +7,21 @@ import java.util.Scanner;
 public class UserDAO {
 
     public void addUser(ServerConnection serverConnection, User user) throws SQLException {
-        String sql = "INSERT INTO user (name, lastName, number) VALUES (?,?,?)";
+        String sql = "INSERT INTO user (name, lastName, number, password) VALUES (?,?,?,?)";
         PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter name, lastname, phone number(after the decimal point)");
+        System.out.println("Enter name, lastname, phone number and password (after the decimal point)");
         String[] userData = scanner.nextLine().split(",");
 
         user.setName(userData[0]);
         user.setLastName(userData[1]);
         user.setPhoneNumber(userData[2]);
+        user.setPassword(userData[3]);
 
         statement.setString(1, userData[0] = user.getName());
         statement.setString(2, userData[1] = user.getLastName());
         statement.setString(3, userData[2] = user.getPhoneNumber());
+        statement.setString(4, userData[3] = user.getPassword());
 
         statement.execute();
         statement.close();
@@ -28,23 +30,30 @@ public class UserDAO {
     }
 
     public void editUser(ServerConnection serverConnection, User user) throws SQLException {
-        String sql = "UPDATE user SET name=?, lastName=?, number=? WHERE id=?";
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter name, lastname, phone number (after the decimal point)");
-        PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
-        String[] userData = scanner.nextLine().split(",");
 
-        System.out.println("Enter user id to edit");
+
+        System.out.println("Enter user ID to edit");
         int id = scanner.nextInt();
+
+        Scanner sc = new Scanner(System.in);
+        String sql = "UPDATE user SET name=?, lastName=?, number=?, password=? WHERE id=?";
+        PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
+        System.out.println("Enter name, lastname, phone number and password (after the decimal point)");
+        String[] userData = sc.nextLine().split(",");
+
+
         user.setName(userData[0]);
         user.setLastName(userData[1]);
         user.setPhoneNumber(userData[2]);
+        user.setPassword(userData[3]);
 
 
         statement.setString(1, userData[0] = user.getName());
         statement.setString(2, userData[1] = user.getLastName());
         statement.setString(3, userData[2] = user.getPhoneNumber());
-        statement.setInt(4,id );
+        statement.setString(4, userData[3] = user.getPassword());
+        statement.setInt(5, id);
 
         int rowsUpdated = statement.executeUpdate();
         if (rowsUpdated > 0) {
@@ -62,6 +71,7 @@ public class UserDAO {
             System.out.println(resultSet.getInt("id"));
             System.out.print(resultSet.getString("name"));
             System.out.println(resultSet.getString("lastName"));
+            System.out.println(resultSet.getString("number"));
             System.out.println("-----------------");
 
         }
@@ -75,7 +85,7 @@ public class UserDAO {
         System.out.println("Enter user ID to delete");
         int ID = scanner.nextInt();
 
-        statement.setInt(1,ID);
+        statement.setInt(1, ID);
 
         statement.execute();
         statement.close();

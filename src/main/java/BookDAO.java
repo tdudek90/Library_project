@@ -29,6 +29,21 @@ public class BookDAO {
         System.out.println("Book has been added!");
     }
 
+    public void deleteBook(ServerConnection connection) throws SQLException {
+        String sql = "DELETE from book WHERE id =?";
+        Scanner scanner = new Scanner(System.in);
+        int ID = scanner.nextInt();
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
+
+        statement.setInt(1, ID);
+
+        statement.execute();
+        statement.close();
+
+        System.out.println("Book has been deleted");
+
+    }
+
     public void showBooks(ServerConnection connection) throws SQLException {
         String sql = "SELECT * FROM book";
         PreparedStatement statement = connection.getNewPrepareStatement(sql);

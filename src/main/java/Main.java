@@ -7,9 +7,8 @@ public class Main {
 
         ServerConnection connection = ServerConnection.getInstance();
         LibraryMenu libraryMenu = new LibraryMenu();
-//        User user = new User();
-//        Book book = new Book();
         Rent rent = new Rent();
+        User user = new User();
         UserDAO userDAO = new UserDAO();
         BookDAO bookDAO = new BookDAO();
         boolean ifEnd = false;
@@ -20,17 +19,17 @@ public class Main {
                     int menuLibrary = libraryMenu.showOptions();
                     switch (menuLibrary) {
                         case 1: {
-                            userDAO.addUser(connection,new User());
+                            userDAO.addUser(connection,user);
+                            break;
                         }
-                        break;
                         case 2: {
                             bookDAO.addBook(connection,new Book());
+                            break;
                         }
-                        break;
                         case 3: {
                             userDAO.showAllUser(connection);
+                            break;
                         }
-                        break;
                         case 4: {
                             bookDAO.showBooks(connection);
                             break;
@@ -44,10 +43,16 @@ public class Main {
                             break;
                         }
                         case 7:{
-                            userDAO.editUser(connection, new User());
+                            userDAO.editUser(connection, user);
+                            break;
                         }
                         case 8:{
                             userDAO.deleteUser(connection);
+                            break;
+                        }
+                        case 9:{
+                            bookDAO.deleteBook(connection);
+                            break;
                         }
                     }
                 }

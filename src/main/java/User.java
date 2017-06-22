@@ -7,11 +7,19 @@ public class User {
     private String name;
     private String lastName;
     private String phoneNumber;
+    private String password;
 
+    public User(String name, String lastName, String phoneNumber, String password) {
+        this.name = name;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+    }
 
     public User() {
 
     }
+
 
     public String getName() {
         return name;
@@ -37,11 +45,12 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
-    public User(String name, String lastName, String phoneNumber) {
-        this.name = name;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
