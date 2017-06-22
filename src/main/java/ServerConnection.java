@@ -1,12 +1,11 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.*;
+import java.util.Scanner;
 
 
 public class ServerConnection {
 
-    private final String DB = "jdbc:mysql://5.135.218.27:3306/tomekD?useUnicode=true&characterEncoding=UTF-8";
-    private final String USER = "tomekD";
-    private final String USERPW = "j4j3gI9FfjZ3fTnu";
-    private final String DRIVER = "com.mysql.jdbc.Driver";
 
     private static ServerConnection ourInstance = new ServerConnection();
 
@@ -18,17 +17,25 @@ public class ServerConnection {
 
     private ServerConnection() {
         try {
+            File file = new File("E:\\Git\\Projects\\Library\\Library_project\\log.txt");
+            Scanner scanner = new Scanner(file);
+
+            final String DB = scanner.nextLine();
+            final String USER = scanner.nextLine();
+            final String USERPW = scanner.nextLine();
+            final String DRIVER = scanner.nextLine();
+
+
             Class.forName(DRIVER).newInstance();
+            connection = DriverManager.getConnection(DB, USER, USERPW);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }
-
-        try {
-            connection = DriverManager.getConnection(DB, USER, USERPW);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }
