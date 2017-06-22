@@ -20,6 +20,7 @@ public class LibraryMenu {
         System.out.println("7. Edit user");
         System.out.println("8. Delete user");
         System.out.println("9. Delete book");
+        System.out.println("10. Edit book");
 
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();

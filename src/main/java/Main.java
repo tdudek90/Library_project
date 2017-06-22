@@ -9,6 +9,7 @@ public class Main {
         LibraryMenu libraryMenu = new LibraryMenu();
         Rent rent = new Rent();
         User user = new User();
+        Book book = new Book();
         UserDAO userDAO = new UserDAO();
         BookDAO bookDAO = new BookDAO();
         boolean ifEnd = false;
@@ -23,7 +24,7 @@ public class Main {
                             break;
                         }
                         case 2: {
-                            bookDAO.addBook(connection,new Book());
+                            bookDAO.addBook(connection,book);
                             break;
                         }
                         case 3: {
@@ -52,6 +53,10 @@ public class Main {
                         }
                         case 9:{
                             bookDAO.deleteBook(connection);
+                            break;
+                        }
+                        case 10:{
+                            bookDAO.editBook(connection,book);
                             break;
                         }
                     }

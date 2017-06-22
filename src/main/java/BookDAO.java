@@ -50,13 +50,40 @@ public class BookDAO {
         ResultSet resultSet = statement.executeQuery(sql);
         while (resultSet.next()) {
             System.out.println("-----------------");
-            System.out.println(resultSet.getInt("id"));
-            System.out.print(resultSet.getString("title"));
-            System.out.println(resultSet.getString("author"));
-            System.out.println(resultSet.getString("pages"));
+            System.out.println("ID: " + (resultSet.getInt("id")));
+            System.out.println("Title: " + (resultSet.getString("title")));
+            System.out.println("Author: " + (resultSet.getString("author")));
+            System.out.println("Pages: " + (resultSet.getString("pages")));
 
         }
 
+    }
+
+    public void editBook(ServerConnection connection, Book book) throws SQLException {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter book ID to edit");
+        int id = scanner.nextInt();
+
+        Scanner sc = new Scanner(System.in);
+        String sql = "UPDATE book SET title=?, author=?, pages=? WHERE id=?";
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
+        System.out.println("Enter title, author, pages (after the decimal point)");
+        String[] userData = sc.nextLine().split(",");
+
+        book.setTitle(userData[0]);
+        book.setAuthor(userData[1]);
+        book.setPages(Integer.parseInt(userData[2]));
+
+        statement.setString(1, userData[0] = book.getTitle());
+        statement.setString(2, userData[1] = book.getAuthor());
+        statement.setString(3, userData[2] = String.valueOf(book.getPages()));
+        statement.setInt(4, id);
+
+        int rowsUpdated = statement.executeUpdate();
+        if (rowsUpdated > 0) {
+            System.out.println("User has been edited!");
+        }
     }
 
 }

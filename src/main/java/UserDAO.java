@@ -32,7 +32,6 @@ public class UserDAO {
     public void editUser(ServerConnection serverConnection, User user) throws SQLException {
         Scanner scanner = new Scanner(System.in);
 
-
         System.out.println("Enter user ID to edit");
         int id = scanner.nextInt();
 
@@ -42,12 +41,10 @@ public class UserDAO {
         System.out.println("Enter name, lastname, phone number and password (after the decimal point)");
         String[] userData = sc.nextLine().split(",");
 
-
         user.setName(userData[0]);
         user.setLastName(userData[1]);
         user.setPhoneNumber(userData[2]);
         user.setPassword(userData[3]);
-
 
         statement.setString(1, userData[0] = user.getName());
         statement.setString(2, userData[1] = user.getLastName());
@@ -68,10 +65,10 @@ public class UserDAO {
         ResultSet resultSet = statement.executeQuery(sql);
         while (resultSet.next()) {
             System.out.println("-----------------");
-            System.out.println(resultSet.getInt("id"));
-            System.out.print(resultSet.getString("name"));
-            System.out.println(resultSet.getString("lastName"));
-            System.out.println(resultSet.getString("number"));
+            System.out.println("ID: " + resultSet.getInt("id"));
+            System.out.println("Name: " + resultSet.getString("name"));
+            System.out.println("Lastname: " + resultSet.getString("lastName"));
+            System.out.println("Number: " + resultSet.getString("number"));
             System.out.println("-----------------");
 
         }
