@@ -59,6 +59,10 @@ public class Main {
                             bookDAO.editBook(connection,book);
                             break;
                         }
+                        case 11:{
+                            rent.showRents(connection);
+                            break;
+                        }
                     }
                 }
                 break;

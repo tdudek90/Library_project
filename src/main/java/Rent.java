@@ -1,5 +1,6 @@
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -39,12 +40,28 @@ public class Rent {
         ResultSet resultSet = statement.executeQuery(sql);
         while (resultSet.next()) {
             System.out.println("-----------------");
-            System.out.println(resultSet.getInt("id"));
-            System.out.println(resultSet.getInt("book"));
-            System.out.println(resultSet.getInt("user"));
-            System.out.println(resultSet.getString("rentTime"));
+            System.out.println("ID: " + resultSet.getInt("id"));
+            System.out.println("Book: " + resultSet.getInt("book"));
+            System.out.println("User: " + resultSet.getInt("user"));
+            System.out.println("Rent time: " + resultSet.getString("rentTime"));
         }
     }
+
+    public void showRents(ServerConnection connection) throws SQLException {
+        String sql = "SELECT  user.name, user.lastName, book.title, rent.id, rent.rentTime FROM user, rent, book WHERE user.id = rent.user AND book.id = rent.book";
+
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
+        ResultSet resultSet = statement.executeQuery(sql);
+        ResultSetMetaData rsmd = resultSet.getMetaData();
+        int columnsNumber = rsmd.getColumnCount();
+        while (resultSet.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) System.out.print(", ");
+                String columnValue = resultSet.getString(i);
+                System.out.print(columnValue + "" );
+            }
+            System.out.println("");
+    }}
 
     private boolean isUserExist(ServerConnection connection, int ID) throws SQLException {
         String sql = "SELECT * FROM user WHERE id = ?";
