@@ -28,15 +28,15 @@ public class Main {
                             break;
                         }
                         case 3: {
-                            userDAO.showAllUser(connection);
+                            rent.addRent(connection);
                             break;
                         }
                         case 4: {
-                            bookDAO.showBooks(connection);
+                            userDAO.showAllUser(connection);
                             break;
                         }
                         case 5: {
-                            rent.addRent(connection);
+                            bookDAO.showBooks(connection);
                             break;
                         }
                         case 6: {
@@ -44,23 +44,27 @@ public class Main {
                             break;
                         }
                         case 7:{
-                            userDAO.editUser(connection, user);
+                            rent.showRents(connection);
                             break;
                         }
                         case 8:{
-                            userDAO.deleteUser(connection);
+                            userDAO.editUser(connection, user);
                             break;
                         }
                         case 9:{
-                            bookDAO.deleteBook(connection);
+                            bookDAO.editBook(connection, book);
                             break;
                         }
                         case 10:{
-                            bookDAO.editBook(connection,book);
+                            userDAO.deleteUser(connection);
                             break;
                         }
                         case 11:{
-                            rent.showRents(connection);
+                            bookDAO.deleteBook(connection);
+                            break;
+                        }
+                        case 12:{
+                            rent.deleteRent(connection);
                             break;
                         }
                     }

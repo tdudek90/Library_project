@@ -58,10 +58,26 @@ public class Rent {
             for (int i = 1; i <= columnsNumber; i++) {
                 if (i > 1) System.out.print(", ");
                 String columnValue = resultSet.getString(i);
-                System.out.print(columnValue + "" );
+                System.out.print(columnValue + "");
             }
             System.out.println("");
-    }}
+        }
+    }
+
+    public void deleteRent(ServerConnection connection) throws SQLException {
+        String sql = "DELETE FROM rent WHERE id =?";
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
+        System.out.println("Enter rent ID to delete");
+        Scanner scanner = new Scanner(System.in);
+        int ID = scanner.nextInt();
+
+        statement.setInt(1,ID);
+        statement.execute();
+        statement.close();
+
+        System.out.println("Rent has been deleted");
+
+    }
 
     private boolean isUserExist(ServerConnection connection, int ID) throws SQLException {
         String sql = "SELECT * FROM user WHERE id = ?";
