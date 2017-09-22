@@ -8,7 +8,7 @@ import java.util.Scanner;
  */
 public class BookDAO {
 
-    public void addBook(ServerConnection connection, Book book) throws SQLException {
+    public void addBook(ServerConnection connection, Book book) {
         String sql = "INSERT INTO book (title, author, pages) VALUES (?,?,?)";
         PreparedStatement statement = connection.getNewPrepareStatement(sql);
         Scanner scanner = new Scanner(System.in);
@@ -19,47 +19,61 @@ public class BookDAO {
         book.setAuthor(newBook[1]);
         book.setPages(Integer.parseInt(newBook[2]));
 
-        statement.setString(1, newBook[0] = book.getTitle());
-        statement.setString(2, newBook[1] = book.getAuthor());
-        statement.setString(3, newBook[2] = String.valueOf(book.getPages()));
+        try {
+            statement.setString(1, newBook[0] = book.getTitle());
+            statement.setString(2, newBook[1] = book.getAuthor());
+            statement.setString(3, newBook[2] = String.valueOf(book.getPages()));
 
-        statement.execute();
-        statement.close();
+            statement.execute();
+            statement.close();
+            System.out.println("Book has been added!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        System.out.println("Book has been added!");
     }
 
-    public void deleteBook(ServerConnection connection) throws SQLException {
+    public void deleteBook(ServerConnection connection) {
         String sql = "DELETE from book WHERE id =?";
         Scanner scanner = new Scanner(System.in);
         int ID = scanner.nextInt();
         PreparedStatement statement = connection.getNewPrepareStatement(sql);
 
-        statement.setInt(1, ID);
+        try {
+            statement.setInt(1, ID);
+            statement.execute();
+            statement.close();
+            System.out.println("Book has been deleted");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
-        statement.execute();
-        statement.close();
-
-        System.out.println("Book has been deleted");
 
     }
 
-    public void showBooks(ServerConnection connection) throws SQLException {
+    public void showBooks(ServerConnection connection) {
         String sql = "SELECT * FROM book";
         PreparedStatement statement = connection.getNewPrepareStatement(sql);
-        ResultSet resultSet = statement.executeQuery(sql);
-        while (resultSet.next()) {
-            System.out.println("-----------------");
-            System.out.println("ID: " + (resultSet.getInt("id")));
-            System.out.println("Title: " + (resultSet.getString("title")));
-            System.out.println("Author: " + (resultSet.getString("author")));
-            System.out.println("Pages: " + (resultSet.getString("pages")));
+        ResultSet resultSet = null;
+        try {
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                System.out.println("-----------------");
+                System.out.println("ID: " + (resultSet.getInt("id")));
+                System.out.println("Title: " + (resultSet.getString("title")));
+                System.out.println("Author: " + (resultSet.getString("author")));
+                System.out.println("Pages: " + (resultSet.getString("pages")));
 
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }
 
-    public void editBook(ServerConnection connection, Book book) throws SQLException {
+    public void editBook(ServerConnection connection, Book book) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter book ID to edit");
@@ -75,15 +89,21 @@ public class BookDAO {
         book.setAuthor(userData[1]);
         book.setPages(Integer.parseInt(userData[2]));
 
-        statement.setString(1, userData[0] = book.getTitle());
-        statement.setString(2, userData[1] = book.getAuthor());
-        statement.setString(3, userData[2] = String.valueOf(book.getPages()));
-        statement.setInt(4, id);
+        try {
+            statement.setString(1, userData[0] = book.getTitle());
+            statement.setString(2, userData[1] = book.getAuthor());
+            statement.setString(3, userData[2] = String.valueOf(book.getPages()));
+            statement.setInt(4, id);
 
-        int rowsUpdated = statement.executeUpdate();
-        if (rowsUpdated > 0) {
-            System.out.println("User has been edited!");
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("User has been edited!");
+            }
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
     }
 
 }

@@ -1,9 +1,8 @@
-import java.sql.*;
 
 public class Main {
 
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args)  {
 
         ServerConnection connection = ServerConnection.getInstance();
         LibraryMenu libraryMenu = new LibraryMenu();
