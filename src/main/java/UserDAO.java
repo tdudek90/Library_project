@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class UserDAO {
 
-    public void addUser(ServerConnection serverConnection, User user) {
+    public void addUser(ServerConnection connection, User user) {
         String sql = "INSERT INTO user (name, lastName, number, password) VALUES (?,?,?,?)";
-        PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter name, lastname, phone number and password (after the decimal point)");
         String[] userData = scanner.nextLine().split(",");
@@ -32,7 +32,7 @@ public class UserDAO {
 
     }
 
-    public void editUser(ServerConnection serverConnection, User user) {
+    public void editUser(ServerConnection connection, User user) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter user ID to edit");
@@ -40,7 +40,7 @@ public class UserDAO {
 
         Scanner sc = new Scanner(System.in);
         String sql = "UPDATE user SET name=?, lastName=?, number=?, password=? WHERE id=?";
-        PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
         System.out.println("Enter name, lastname, phone number and password (after the decimal point)");
         String[] userData = sc.nextLine().split(",");
 

@@ -97,6 +97,37 @@ public class RentDAO {
             e.printStackTrace();
         }
 
+    }
+
+    public void editRent(ServerConnection connection, Rent rent){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter rent ID to edit");
+        int id = scanner.nextInt();
+
+        Scanner sc = new Scanner(System.in);
+        String sql = "UPDATE rent SET user=?, book=? WHERE id=?";
+        PreparedStatement statement = connection.getNewPrepareStatement(sql);
+        System.out.println("Enter userID and bookID (after the decimal point)");
+        String[] userData = sc.nextLine().split(",");
+
+        rent.setUserID(Integer.parseInt(userData[0]));
+        rent.setBookID(Integer.parseInt(userData[1]));
+
+        try {
+            statement.setString(1, userData[0] = String.valueOf(rent.getUserID()));
+            statement.setString(2, userData[1] = String.valueOf(rent.getBookID()));
+            statement.setInt(3, id);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Rent has been edited!");
+            }
+
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 

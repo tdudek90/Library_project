@@ -23,6 +23,7 @@ public class LibraryMenu {
         System.out.println("10. Delete user");
         System.out.println("11. Delete book");
         System.out.println("12. Delete rent");
+        System.out.println("13. Edit rent");
 
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();

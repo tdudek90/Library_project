@@ -66,6 +66,9 @@ public class Main {
                         case 12: {
                             rentDAO.deleteRent(connection);
                             break;
+                        }case 13: {
+                            rentDAO.editRent(connection, rent);
+                            break;
                         }
                     }
                 }
