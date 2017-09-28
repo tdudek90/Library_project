@@ -2,7 +2,7 @@
 public class Main {
 
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
 
         ServerConnection connection = ServerConnection.getInstance();
         LibraryMenu libraryMenu = new LibraryMenu();
@@ -28,7 +28,7 @@ public class Main {
                             break;
                         }
                         case 3: {
-                            rentDAO.addRent(connection,user,book);
+                            rentDAO.addRent(connection, user, book);
                             break;
                         }
                         case 4: {
@@ -66,7 +66,8 @@ public class Main {
                         case 12: {
                             rentDAO.deleteRent(connection);
                             break;
-                        }case 13: {
+                        }
+                        case 13: {
                             rentDAO.editRent(connection, rent);
                             break;
                         }

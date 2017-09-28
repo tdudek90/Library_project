@@ -1,10 +1,21 @@
 
-
 public class Book {
 
     private String title;
     private String author;
     private int pages;
+    private int bookID;
+
+    public Book() {
+    }
+
+    public int getBookID() {
+        return bookID;
+    }
+
+    public void setBookID(int bookID) {
+        this.bookID = bookID;
+    }
 
     public String getTitle() {
         return title;
@@ -28,9 +39,6 @@ public class Book {
 
     public void setPages(int pages) {
         this.pages = pages;
-    }
-
-    public Book() {
     }
 
 

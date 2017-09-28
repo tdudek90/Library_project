@@ -3,9 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-/**
- * Created by Tomek on 2017-06-21.
- */
+
 public class BookDAO {
 
     public void addBook(ServerConnection connection, Book book) {
@@ -47,7 +45,6 @@ public class BookDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
 
     }
 

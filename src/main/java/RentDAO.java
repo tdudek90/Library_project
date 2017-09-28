@@ -4,9 +4,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-/**
- * Created by Tomek on 2017-08-08.
- */
+
 public class RentDAO {
 
     public void addRent(ServerConnection connection, User user, Book book) {
@@ -15,15 +13,16 @@ public class RentDAO {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter user ID, book ID)");
 
-        String[] bookData = scanner.nextLine().split(",");
+        String[] rentData = scanner.nextLine().split(",");
 
-        int userID = Integer.parseInt(bookData[0]);
-        int bookID = Integer.parseInt(bookData[1]);
+        user.setUserID(Integer.parseInt(rentData[0]));
+        book.setBookID(Integer.parseInt(rentData[1]));
+
 
         try {
-            statement.setInt(1, userID);
-            statement.setInt(2, bookID);
-            if (!(isUserExist(connection, userID) && isBookExist(connection, bookID) && !isBookRented(connection, bookID))) {
+            statement.setInt(1, Integer.parseInt(rentData[0] = String.valueOf(user.getUserID())));
+            statement.setInt(2, Integer.parseInt(rentData[1] = String.valueOf(book.getBookID())));
+            if ((!((isUserExist(connection, user.getUserID()) & (isBookExist(connection, book.getBookID()))) & (!isBookRented(connection, book.getBookID()))))) {
                 return;
             } else {
                 statement.execute();
@@ -99,7 +98,7 @@ public class RentDAO {
 
     }
 
-    public void editRent(ServerConnection connection, Rent rent){
+    public void editRent(ServerConnection connection, Rent rent) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter rent ID to edit");
@@ -165,7 +164,7 @@ public class RentDAO {
         statement.setInt(1, ID);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
-            System.out.println("Book is rented");
+            System.out.println("Book is rented. Choose another one");
             return true;
         } else {
             System.out.println("Book is not rented");
